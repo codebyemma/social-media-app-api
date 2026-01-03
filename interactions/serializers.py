@@ -1,6 +1,11 @@
 from rest_framework import serializers
-from .models import User
+from interactions.models import Comment
+from users.serializers import UserProfileSerializer
 
-class UserSerializer(serializers.ModelSerializer):
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = UserProfileSerializer(read_only=True)
+
     class Meta:
-        model = User
+        model = Comment
+        fields = ["id", "text", "user", "created_at"]
