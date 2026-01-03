@@ -1,11 +1,15 @@
 from rest_framework import generics, permissions, status
 from .models import Post, Like, Comment
-from .serializers import PostSerializer, PostCreateSerializer
+from .serializers import (
+    PostSerializer,
+    PostCreateSerializer,
+    CommentCreateSerializer,
+)
 from interactions.models import Follow
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from .permissions import IsOwner
+from .permissions import IsOwner, IsCommentOwner
 
 class PostCreateView(generics.CreateAPIView):
     serializer_class = PostCreateSerializer
@@ -24,7 +28,7 @@ class FeedView(generics.ListAPIView):
         ).values_list("following_id", flat=True)
 
         return Post.objects.filter(
-            author__in=list(following_ids) + [user.id]
+            user__in=list(following_ids) + [user.id]
         ).order_by("-created_at")
 
 class LikePostView(APIView):

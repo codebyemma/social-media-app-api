@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5771csf2=j(2v8r2y*!83(^-zw31_kb98rj8(f080u5#^t0*wx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'interactions',
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -121,5 +122,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# settings.py
 AUTH_USER_MODEL = "users.User"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}

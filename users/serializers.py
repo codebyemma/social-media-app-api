@@ -17,7 +17,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "username",
             "email",
             "bio",
-            "profile_image",
+            "image",
             "followers_count",
             "following_count",
             "is_following",
@@ -61,7 +61,3 @@ class RegisterSerializer(serializers.ModelSerializer):
             "refresh": str(refresh),
         }
 
-class UserProfileView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]

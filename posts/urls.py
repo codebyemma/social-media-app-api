@@ -1,5 +1,13 @@
 from django.urls import path
-from .views import PostCreateView, FeedView
+from .views import (
+    PostCreateView,
+    FeedView,
+    LikePostView,
+    UnlikePostView,
+    CommentCreateView,
+    PostDetailView,
+    CommentDeleteView,
+)
 
 urlpatterns = [
     path("create/", PostCreateView.as_view()),

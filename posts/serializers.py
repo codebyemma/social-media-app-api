@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from .models import Post, Like
-from accounts.serializers import UserProfileSerializer
+from .models import Post, Like, Comment
+from users.serializers import UserProfileSerializer
 
 
 class CommentCreateSerializer(serializers.ModelSerializer):
@@ -35,13 +35,13 @@ class PostCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         request = self.context["request"]
         return Post.objects.create(
-            author=request.user,
+            user=request.user,
             **validated_data
         )
 
 
 class PostSerializer(serializers.ModelSerializer):
-    author = UserProfileSerializer(read_only=True)
+    user = UserProfileSerializer(read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     likes_count = serializers.SerializerMethodField()
     is_liked = serializers.SerializerMethodField()
@@ -50,11 +50,12 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = [
             "id",
-            "author",
+            "user",
             "content",
             "created_at",
             "likes_count",
             "is_liked",
+            "comments",
         ]
 
     def get_likes_count(self, obj):
