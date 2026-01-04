@@ -1,3 +1,6 @@
+the video u submitted does not a sound but this does. i can not cancel to resubmit due to deadline already passed
+https://www.loom.com/share/e2fa590919f04055a57dffbc796a4b91
+
 # Social Media API
 
 A robust RESTful API for a social media application built with Django and Django REST Framework. This backend handles user authentication, profiles, posts, and social interactions like following, liking, and commenting.
